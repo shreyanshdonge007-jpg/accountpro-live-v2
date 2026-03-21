@@ -61,9 +61,9 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`🚀 AccountPro API Server running on http://localhost:${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 AccountPro API Server running on port ${PORT}`);
+  console.log(`📊 Health check on port ${PORT}`);
 });
 
 // Graceful shutdown
