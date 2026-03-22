@@ -90,16 +90,16 @@ CREATE TABLE IF NOT EXISTS ai_suggestions (
 );
 
 -- Create indexes for better query performance
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_accounts_user_id ON accounts(user_id);
-CREATE INDEX idx_accounts_type ON accounts(type);
-CREATE INDEX idx_journal_entries_user_id ON journal_entries(user_id);
-CREATE INDEX idx_journal_entries_date ON journal_entries(entry_date);
-CREATE INDEX idx_entry_lines_entry_id ON entry_lines(entry_id);
-CREATE INDEX idx_entry_lines_account_id ON entry_lines(account_id);
-CREATE INDEX idx_sources_user_id ON sources(user_id);
-CREATE INDEX idx_queue_user_id ON queue(user_id);
-CREATE INDEX idx_queue_status ON queue(status);
-CREATE INDEX idx_ai_chat_user_id ON ai_chat(user_id);
-CREATE INDEX idx_ai_suggestions_user_id ON ai_suggestions(user_id);
-CREATE INDEX idx_ai_suggestions_entry_id ON ai_suggestions(entry_id);
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_accounts_user_id ON accounts(user_id);
+CREATE INDEX IF NOT EXISTS idx_accounts_type ON accounts(type);
+CREATE INDEX IF NOT EXISTS idx_journal_entries_user_id ON journal_entries(user_id);
+CREATE INDEX IF NOT EXISTS idx_journal_entries_date ON journal_entries(entry_date);
+CREATE INDEX IF NOT EXISTS idx_entry_lines_entry_id ON entry_lines(entry_id);
+CREATE INDEX IF NOT EXISTS idx_entry_lines_account_id ON entry_lines(account_id);
+CREATE INDEX IF NOT EXISTS idx_sources_user_id ON sources(user_id);
+CREATE INDEX IF NOT EXISTS idx_queue_user_id ON queue(user_id);
+CREATE INDEX IF NOT EXISTS idx_queue_status ON queue(status);
+CREATE INDEX IF NOT EXISTS idx_ai_chat_user_id ON ai_chat(user_id);
+CREATE INDEX IF NOT EXISTS idx_ai_suggestions_user_id ON ai_suggestions(user_id);
+CREATE INDEX IF NOT EXISTS idx_ai_suggestions_entry_id ON ai_suggestions(entry_id);
