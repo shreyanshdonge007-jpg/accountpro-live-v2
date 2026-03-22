@@ -811,7 +811,7 @@ async function doLogin() {
       authToken = data.token; localStorage.setItem('accountpro_token', authToken);
       document.getElementById('auth-bg').style.display = 'none';
       loadDataFromBackend(); showToast('✓ Logged in', 's');
-    } else showToast(data.error || 'Login failed', 'e');
+    } else showToast(data.message || data.error || 'Login failed', 'e');
   } catch (e) { 
     console.error("Login Error:", e);
     showToast('Connection error', 'e'); 
@@ -827,7 +827,7 @@ async function doRegister() {
       authToken = data.token; localStorage.setItem('accountpro_token', authToken);
       document.getElementById('auth-bg').style.display = 'none';
       loadDataFromBackend(); showToast('✓ Registered & logged in', 's');
-    } else showToast(data.error || 'Registration failed', 'e');
+    } else showToast(data.message || data.error || 'Registration failed', 'e');
   } catch (e) { 
     console.error("Registration Error:", e);
     showToast('Connection error', 'e'); 
