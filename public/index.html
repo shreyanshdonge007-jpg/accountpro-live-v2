@@ -284,9 +284,11 @@ select.fi option{background:var(--bg2);}
   <div class="auth-box" id="login-box">
     <div class="auth-title">AccountPro AI</div>
     <div class="auth-sub">Login to your cloud account</div>
-    <input class="fi" id="auth-email" type="email" placeholder="Email Address">
-    <input class="fi" id="auth-pass" type="password" placeholder="Password">
-    <button class="btn btn-a" style="padding:10px;font-size:13px" onclick="doLogin()">Login</button>
+    <form onsubmit="event.preventDefault(); doLogin();" style="display:flex;flex-direction:column;gap:12px;">
+      <input class="fi" id="auth-email" type="email" placeholder="Email Address">
+      <input class="fi" id="auth-pass" type="password" placeholder="Password">
+      <button class="btn btn-a" type="submit" style="padding:10px;font-size:13px">Login</button>
+    </form>
     <div style="text-align:center;font-size:11px;color:var(--text3);margin-top:4px;">
       Don't have an account? <span style="color:var(--accent);cursor:pointer" onclick="toggleAuthMode()">Register</span>
     </div>
@@ -294,10 +296,12 @@ select.fi option{background:var(--bg2);}
   <div class="auth-box" id="register-box" style="display:none;">
     <div class="auth-title">AccountPro AI</div>
     <div class="auth-sub">Create a new cloud account</div>
-    <input class="fi" id="reg-name" type="text" placeholder="Full Name">
-    <input class="fi" id="reg-email" type="email" placeholder="Email Address">
-    <input class="fi" id="reg-pass" type="password" placeholder="Password">
-    <button class="btn btn-a" style="padding:10px;font-size:13px" onclick="doRegister()">Register</button>
+    <form onsubmit="event.preventDefault(); doRegister();" style="display:flex;flex-direction:column;gap:12px;">
+      <input class="fi" id="reg-name" type="text" placeholder="Full Name">
+      <input class="fi" id="reg-email" type="email" placeholder="Email Address">
+      <input class="fi" id="reg-pass" type="password" placeholder="Password">
+      <button class="btn btn-a" type="submit" style="padding:10px;font-size:13px">Register</button>
+    </form>
     <div style="text-align:center;font-size:11px;color:var(--text3);margin-top:4px;">
       Already have an account? <span style="color:var(--accent);cursor:pointer" onclick="toggleAuthMode()">Login</span>
     </div>
@@ -660,7 +664,9 @@ select.fi option{background:var(--bg2);}
       <span>🔑</span>
       <div style="flex:1;min-width:0;">
         <div style="font-weight:600;margin-bottom:3px;">Anthropic API Key</div>
-        <div style="display:flex;gap:5px;"><input type="password" id="api-key-inp" placeholder="sk-ant-api03-…"/><button onclick="saveApiKey()">Save</button></div>
+        <form onsubmit="event.preventDefault(); saveApiKey();" style="display:flex;gap:5px;margin:0;">
+          <input type="password" id="api-key-inp" placeholder="sk-ant-api03-…"/><button type="submit">Save</button>
+        </form>
       </div>
     </div>
     <div class="std-panel" id="std-mini">
