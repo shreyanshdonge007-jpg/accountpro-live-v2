@@ -35,8 +35,7 @@ const AuthController = {
         error: 'Internal server error', 
         message: error.message || String(error),
         stack: error.stack,
-        DEBUG_URL_MISSING: !process.env.DATABASE_URL,
-        DEBUG_ALL_VARIABLES: Object.keys(process.env).join(', ')
+        DEBUG_EXACT_URL: process.env.DATABASE_URL ? process.env.DATABASE_URL.replace(/:[^:@]*@/, ':***@') : 'none'
       });
     }
   },
