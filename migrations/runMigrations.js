@@ -1,24 +1,25 @@
-const pool = require('../src/config/database');
 const fs = require('fs');
 const path = require('path');
+const { Pool } = require('pg');
+require('dotenv').config();
+
+// Force it to use the Railway URL if it exists
+const pool = new Pool(
+  process.env.DATABASE_URL 
+    ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
+    : {}
+);
 
 async function runMigrations() {
-  const client = await pool.connect();
   try {
-    console.log('🔄 Running migrations...');
-
-    // Read and execute schema file
-    const schemaPath = path.join(__dirname, '001_initial_schema.sql');
-    const schema = fs.readFileSync(schemaPath, 'utf8');
-
-    await client.query(schema);
+    console.log('Connecting to cloud database...');
+    const schema = fs.readFileSync(path.join(__dirname, '001_initial_schema.sql'), 'utf8');
+    await pool.query(schema);
     console.log('✅ Migrations completed successfully');
-  } catch (error) {
-    console.error('❌ Migration error:', error.message);
+    process.exit(0);
+  } catch (err) {
+    console.error('Migration failed:', err);
     process.exit(1);
-  } finally {
-    client.release();
-    await pool.end();
   }
 }
 
