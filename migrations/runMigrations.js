@@ -3,17 +3,26 @@ const path = require('path');
 const { Pool } = require('pg');
 require('dotenv').config();
 
-// Force it to use the Railway URL if it exists
-const pool = new Pool(
-  process.env.DATABASE_URL 
-    ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
-    : {}
-);
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  console.error("Migration failed: 'DATABASE_URL' environment variable not set.");
+  console.error("The migration script cannot connect to the database without it.");
+  process.exit(1);
+}
+
+const pool = new Pool({
+  connectionString: connectionString,
+  ssl: { rejectUnauthorized: false },
+});
 
 async function runMigrations() {
   try {
     console.log('Connecting to cloud database...');
-    const schema = fs.readFileSync(path.join(__dirname, '001_initial_schema.sql'), 'utf8');
+    const schema = fs.readFileSync(
+      path.join(__dirname, '001_initial_schema.sql'),
+      'utf8'
+    );
     await pool.query(schema);
     console.log('✅ Migrations completed successfully');
     process.exit(0);
