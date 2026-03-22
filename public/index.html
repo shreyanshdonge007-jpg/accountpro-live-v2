@@ -792,9 +792,7 @@ select.fi option{background:var(--bg2);}
 // ════════════════════════════════════════════════════════════════
 // BACKEND API INTEGRATION & AUTH
 // ════════════════════════════════════════════════════════════════
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:5000/api'
-  : '/api';
+const API_BASE = '/api';
 let authToken = localStorage.getItem('accountpro_token');
 let backendAccounts = {}; // Maps canonical names to backend IDs
 
@@ -814,7 +812,10 @@ async function doLogin() {
       document.getElementById('auth-bg').style.display = 'none';
       loadDataFromBackend(); showToast('✓ Logged in', 's');
     } else showToast(data.error || 'Login failed', 'e');
-  } catch (e) { showToast('Connection error', 'e'); }
+  } catch (e) { 
+    console.error("Login Error:", e);
+    showToast('Connection error', 'e'); 
+  }
 }
 
 async function doRegister() {
@@ -827,7 +828,10 @@ async function doRegister() {
       document.getElementById('auth-bg').style.display = 'none';
       loadDataFromBackend(); showToast('✓ Registered & logged in', 's');
     } else showToast(data.error || 'Registration failed', 'e');
-  } catch (e) { showToast('Connection error', 'e'); }
+  } catch (e) { 
+    console.error("Registration Error:", e);
+    showToast('Connection error', 'e'); 
+  }
 }
 
 function logout() {
