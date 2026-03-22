@@ -30,7 +30,12 @@ const AuthController = {
         token,
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error('=== REGISTRATION CRASH ===', error);
+      res.status(500).json({ 
+        error: 'Internal server error', 
+        message: error.message || String(error),
+        stack: error.stack 
+      });
     }
   },
 
@@ -64,7 +69,11 @@ const AuthController = {
         token,
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error('=== LOGIN CRASH ===', error);
+      res.status(500).json({ 
+        error: 'Internal server error', 
+        message: error.message || String(error)
+      });
     }
   },
 
@@ -82,7 +91,7 @@ const AuthController = {
         createdAt: user.created_at,
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message || String(error) });
     }
   },
 
@@ -104,7 +113,7 @@ const AuthController = {
         },
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message || String(error) });
     }
   },
 };
